@@ -24,21 +24,25 @@ class Conta:
     @property
     def usuario(self):
         return self.__usuario
+    
+    @property
+    def extrato(self):
+        return self.__extrato
 
-    def imprimir_extrato(self):
+    def imprimir_extrato(self, saldo, /, *, extrato):
         """
         Retorna o extrato da conta, mostrando todas as movimentações.
 
         Se não houve movimentações, retorna uma string informando que não foram realizadas movimentações.
         """
-        response = self.__extrato
-        response += f"----------------- Saldo: R$ {self.saldo:.2f}\n"
-        if not self.__extrato:
+        response = extrato
+        response += f"----------------- Saldo: R$ {saldo:.2f}\n"
+        if not extrato:
             return "Não foram realizadas movimentações."
         else:
             return response
 
-    def depositar(self, valor):
+    def depositar(self, valor, /):
         """
         Adiciona um valor ao saldo da conta, atualizando o extrato e imprimindo o saldo.
 
@@ -57,7 +61,7 @@ class Conta:
         self.__extrato += f"Depósito: R$ {valor:.2f}\n"
         return self.__saldo
 
-    def sacar(self, valor):
+    def sacar(self, *, valor):
         """
         Realiza um saque do saldo da conta, atualizando o extrato e o número de saques.
 
@@ -138,8 +142,6 @@ def menu(opcao):
     => """]
     return menu[opcao]
 
-# usuario = Usuario(123,'Jud')
-# conta = Conta(1, 0, usuario)
 menu_opcao = 0
 conta_atual = ""
 contas_numeracao = 0
@@ -211,7 +213,7 @@ while True:
             entrada = input("Informe o valor para depositar: ")
             if verificacao_entrada(entrada):
                 valor = float(entrada)
-                result = conta_atual.depositar(valor=valor)
+                result = conta_atual.depositar(valor)
                 print(f"Depósito concluído com sucesso. O salto autal é R$ {result}" if result else "!!! Erro >>> Valor inválido.")
 
         elif opcao == "s":
@@ -220,7 +222,7 @@ while True:
                 valor = float(entrada)
                 result = conta_atual.sacar(valor=valor)
                 mensagens = {
-                            -1: "!!! Erro >>> Você não tem saldo suficiente.",
+                            -1: "!!! Erro >>> Você não tem saldo suficiente.c",
                             -2: "!!! Erro >>> O valor do saque excede o limite diário.",
                             -3: "!!! Erro >>> Número máximo de saques diários excedido."
                         }
@@ -228,7 +230,7 @@ while True:
 
         elif opcao == "e":
             print("\n::::::::::::::::: EXTRATO :::::::::::::::::")
-            print(conta_atual.imprimir_extrato())
+            print(conta_atual.imprimir_extrato(conta_atual.saldo, extrato=conta_atual.extrato))
 
         elif opcao == "x":
             menu_opcao = 0
