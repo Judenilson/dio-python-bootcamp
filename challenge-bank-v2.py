@@ -113,29 +113,26 @@ class Usuario:
         self.__endereco = endereco
         return self.__endereco
 
-
 def menu(opcao):
     if opcao > 2:
         return "Erro !!!"
     menu = [f"""
-
+    -----------------------------------
     !!! DIO BANK - MÓDULO GERENCIAL !!!
-
+    -----------------------------------
     [a] Acessar Conta
     [l] Listar Contas
     [n] Nova Conta
     [u] Novo Usuário
     [x] Sair
-
     => """, f"""
-
-    !!! DIO BANK - MÓDULO CONTA !!!
-
+    -----------------------------------
+      !!! DIO BANK - MÓDULO CONTA !!!
+    -----------------------------------
     [d] Depositar
     [s] Sacar
     [e] Extrato
     [x] Menu Principal
-
     => """]
     return menu[opcao]
 
@@ -170,26 +167,28 @@ while True:
                     print(f"CPF: {conta.usuario.cpf}")   
 
         elif opcao == "n":
-            entrada = input("Digite o número do CPF do usuário da nova conta:")
-
+            entrada = int(input("Digite o número do CPF do usuário da nova conta:"))
+            nao_encontrado = True
             for usuario in usuarios:
                 if usuario.cpf == entrada:
                     contas_numeracao += 1
                     conta = Conta(numero=contas_numeracao, saldo=0, usuario=usuario)
                     contas.append(conta)
+                    nao_encontrado = False
                     break
-                else:
-                    print('Número de CPF inexistente no banco de dados de clientes!')
-            
+            if nao_encontrado: 
+                print('Número de CPF inexistente no banco de dados de clientes!')            
             
         elif opcao == "u":            
-            cpf = input("Digite o CPF do novo cliente (apenas números):")        
-            nome = input("Digite o nome do novo cliente:")      
-            usuario = Usuario(cpf=cpf, nome=nome)  
-            usuarios.append(usuario)
+            cpf = int(input("Digite o CPF do novo cliente (apenas números):"))
 
-            for u in usuarios:
-                print(u.nome)
+            existe_cpf = any(usuario.cpf == cpf for usuario in usuarios)
+            if(existe_cpf):
+                print("CPF já cadastrado na Base de Dados! Operação cancelada!")                
+            else:
+                nome = input("Digite o nome do novo cliente:")      
+                usuario = Usuario(cpf=cpf, nome=nome)  
+                usuarios.append(usuario)
 
         elif opcao == "x":
             break
