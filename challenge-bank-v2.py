@@ -95,11 +95,11 @@ class Conta:
 
 
 class Usuario:
-    def __init__(self, cpf, nome):
+    def __init__(self, cpf, nome, data_nascimento, endereco):
         self.__cpf = cpf
         self.__nome = nome
-        self.__data_nascimento = ''
-        self.__endereco = ''
+        self.__data_nascimento = data_nascimento
+        self.__endereco = endereco
             
     @property
     def nome(self):
@@ -107,17 +107,25 @@ class Usuario:
     
     @property
     def cpf(self):
-        return self.__cpf 
+        return self.__cpf     
 
-    def data_nascimento(self, data):
-        if isinstance(data, str):
-            self.__data_nascimento = data
-        else:
-            raise ValueError("O nome deve ser uma string")
+    @property
+    def data_nascimento(self):
+        return self.__data_nascimento    
     
-    def endereco(self, endereco):
-        self.__endereco = endereco
-        return self.__endereco
+    @property
+    def endereco(self):
+        return self.__endereco 
+    
+    # def data_nascimento(self, data):
+    #     if isinstance(data, str):
+    #         self.__data_nascimento = data
+    #     else:
+    #         raise ValueError("O nome deve ser uma string")
+    
+    # def endereco(self, endereco):
+    #     self.__endereco = endereco
+    #     return self.__endereco
 
 def menu(opcao):
     if opcao > 2:
@@ -174,9 +182,13 @@ while True:
                 print("Não existem contas cadastradas!")
             else:
                 for conta in contas:
+                    print("------------------------------------")
                     print(f"Numero: {conta.numero}")   
                     print(f"Nome: {conta.usuario.nome}")   
                     print(f"CPF: {conta.usuario.cpf}")   
+                    print(f"Data de Nascimento: {conta.usuario.data_nascimento}")   
+                    print(f"Endereço: {conta.usuario.endereco}")   
+                    print("------------------------------------")
 
         elif opcao == "n":
             entrada = input("Digite o número do CPF do usuário da nova conta:")
@@ -202,7 +214,9 @@ while True:
                     print("CPF já cadastrado na Base de Dados! Operação cancelada!")                
                 else:
                     nome = input("Digite o nome do novo cliente:")      
-                    usuario = Usuario(cpf=cpf, nome=nome)  
+                    data_nascimento = input("Digite a data de nascimento do cliente (dd-mm-aaaa):")      
+                    endereco = input("Digite o endereco do cliente:")      
+                    usuario = Usuario(cpf=cpf, nome=nome, data_nascimento=data_nascimento, endereco=endereco)  
                     usuarios.append(usuario)
 
         elif opcao == "x":
