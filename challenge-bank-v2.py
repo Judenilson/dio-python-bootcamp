@@ -30,11 +30,13 @@ class Conta:
         Retorna o extrato da conta, mostrando todas as movimentações.
 
         Se não houve movimentações, retorna uma string informando que não foram realizadas movimentações.
-        """    
+        """
+        response = self.__extrato
+        response += f"----------------- Saldo: R$ {self.saldo:.2f}\n"
         if not self.__extrato:
             return "Não foram realizadas movimentações."
         else:
-            return self.__extrato
+            return response
 
     def depositar(self, valor):
         """
