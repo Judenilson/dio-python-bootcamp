@@ -123,7 +123,7 @@ def menu(opcao):
     [a] Acessar Conta
     [l] Listar Contas
     [n] Nova Conta
-    [u] Novo Usuário
+    [c] Cadastrar Usuário
     [x] Sair
     => """, f"""
     -----------------------------------
@@ -144,6 +144,13 @@ contas_numeracao = 0
 contas = []
 usuarios = []
 
+def verificacao_entrada(numero):
+    if numero.isdigit():
+        return True
+    else:
+        print("!!! Erro >>> Entrada inválida, digite apenas números! Operação Cancelada!")
+        return False
+
 while True:
 
     if menu_opcao == 0:
@@ -151,11 +158,12 @@ while True:
 
         if opcao == "a":
             entrada = input("Digite o número da conta:")
-            for conta in contas:
-                if conta.numero == int(entrada):
-                    conta_atual = conta
-                    menu_opcao = 1
-                    break
+            if verificacao_entrada(entrada):
+                for conta in contas:
+                    if conta.numero == int(entrada):
+                        conta_atual = conta
+                        menu_opcao = 1
+                        break                
 
         elif opcao == "l":
             if len(contas) == 0:
@@ -167,28 +175,31 @@ while True:
                     print(f"CPF: {conta.usuario.cpf}")   
 
         elif opcao == "n":
-            entrada = int(input("Digite o número do CPF do usuário da nova conta:"))
-            nao_encontrado = True
-            for usuario in usuarios:
-                if usuario.cpf == entrada:
-                    contas_numeracao += 1
-                    conta = Conta(numero=contas_numeracao, saldo=0, usuario=usuario)
-                    contas.append(conta)
-                    nao_encontrado = False
-                    break
-            if nao_encontrado: 
-                print('Número de CPF inexistente no banco de dados de clientes!')            
+            entrada = input("Digite o número do CPF do usuário da nova conta:")
+            if verificacao_entrada(entrada):
+                cpf = int(entrada)
+                nao_encontrado = True
+                for usuario in usuarios:
+                    if usuario.cpf == cpf:
+                        contas_numeracao += 1
+                        conta = Conta(numero=contas_numeracao, saldo=0, usuario=usuario)
+                        contas.append(conta)
+                        nao_encontrado = False
+                        break
+                if nao_encontrado: 
+                    print('Número de CPF inexistente no banco de dados de clientes!')            
             
-        elif opcao == "u":            
-            cpf = int(input("Digite o CPF do novo cliente (apenas números):"))
-
-            existe_cpf = any(usuario.cpf == cpf for usuario in usuarios)
-            if(existe_cpf):
-                print("CPF já cadastrado na Base de Dados! Operação cancelada!")                
-            else:
-                nome = input("Digite o nome do novo cliente:")      
-                usuario = Usuario(cpf=cpf, nome=nome)  
-                usuarios.append(usuario)
+        elif opcao == "c":             
+            entrada = input("Digite o CPF do novo cliente (apenas números):")
+            if verificacao_entrada(entrada):
+                cpf = int(entrada)
+                existe_cpf = any(usuario.cpf == cpf for usuario in usuarios)
+                if(existe_cpf):
+                    print("CPF já cadastrado na Base de Dados! Operação cancelada!")                
+                else:
+                    nome = input("Digite o nome do novo cliente:")      
+                    usuario = Usuario(cpf=cpf, nome=nome)  
+                    usuarios.append(usuario)
 
         elif opcao == "x":
             break
@@ -196,16 +207,14 @@ while True:
         opcao = input(menu(menu_opcao)).lower()
         if opcao == "d":
             entrada = input("Informe o valor para depositar: ")
-            if entrada.isdigit():
+            if verificacao_entrada(entrada):
                 valor = float(entrada)
                 result = conta_atual.depositar(valor=valor)
                 print(f"Depósito concluído com sucesso. O salto autal é R$ {result}" if result else "!!! Erro >>> Valor inválido.")
-            else:
-                print("!!! Erro >>> Entrada inválida, digite apenas números!")
 
         elif opcao == "s":
             entrada = input("Informe o valor para sacar: ")
-            if entrada.isdigit():
+            if verificacao_entrada(entrada):
                 valor = float(entrada)
                 result = conta_atual.sacar(valor=valor)
                 mensagens = {
@@ -214,8 +223,6 @@ while True:
                             -3: "!!! Erro >>> Número máximo de saques diários excedido."
                         }
                 print(mensagens.get(result, f"Saque realizado com sucesso. O saldo atual é R$ {result}."))
-            else:
-                print("!!! Erro >>> Entrada inválida, digite apenas números!")
 
         elif opcao == "e":
             print("\n::::::::::::::::: EXTRATO :::::::::::::::::")
