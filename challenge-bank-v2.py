@@ -1,33 +1,21 @@
 class Conta:
     def __init__(self, numero, saldo, usuario):
-        self.__numero = numero
-        self.__saldo = saldo
-        self.__usuario = usuario
-        self.__agencia = "0001"
-        self.__limite = 500
-        self.__extrato = ""
-        self.__numero_saques = 0
-        self.__limite_saque_dia = 3
+        self.numero = numero
+        self.usuario = usuario
+        self.agencia = "0001"
+        self._saldo = saldo
+        self._limite = 500
+        self._extrato = ""
+        self._numero_saques = 0
+        self._limite_saque_dia = 3
 
     @property
     def saldo(self):
-        return self.__saldo 
-    
-    @property
-    def numero(self):
-        return self.__numero
-    
-    @property
-    def agencia(self):
-        return self.__agencia
-    
-    @property
-    def usuario(self):
-        return self.__usuario
+        return self._saldo 
     
     @property
     def extrato(self):
-        return self.__extrato    
+        return self._extrato    
     
     def __str__(self):
         return f"{self.__class__.__name__}: {', '.join([f'{chave}={valor}' for chave, valor in self.__dict__.items()])}"
@@ -60,9 +48,9 @@ class Conta:
         if valor <= 0:
             return 0
 
-        self.__saldo += valor
-        self.__extrato += f"Depósito: R$ {valor:.2f}\n"
-        return self.__saldo
+        self._saldo += valor
+        self._extrato += f"Depósito: R$ {valor:.2f}\n"
+        return self._saldo
 
     def sacar(self, *, valor):
         """
@@ -82,44 +70,28 @@ class Conta:
         if valor <= 0:
             return 0
 
-        if valor > self.__saldo:
+        if valor > self._saldo:
             return -1
 
-        if valor > self.__limite:
+        if valor > self._limite:
             return -2
 
-        if self.__numero_saques >= self.__limite_saque_dia:
+        if self._numero_saques >= self._limite_saque_dia:
             return -3
 
-        self.__saldo -= valor
-        self.__extrato += f"Saque: R$ {valor:.2f}\n"
-        self.__numero_saques += 1
-        return self.__saldo
+        self._saldo -= valor
+        self._extrato += f"Saque: R$ {valor:.2f}\n"
+        self._numero_saques += 1
+        return self._saldo
 
 
 class Usuario:
     def __init__(self, cpf, nome, data_nascimento, endereco):
-        self.__cpf = cpf
-        self.__nome = nome
-        self.__data_nascimento = data_nascimento
-        self.__endereco = endereco
+        self.cpf = cpf
+        self.nome = nome
+        self.data_nascimento = data_nascimento
+        self.endereco = endereco
             
-    @property
-    def nome(self):
-        return self.__nome
-    
-    @property
-    def cpf(self):
-        return self.__cpf     
-
-    @property
-    def data_nascimento(self):
-        return self.__data_nascimento    
-    
-    @property
-    def endereco(self):
-        return self.__endereco 
-
 def menu(opcao):
     if opcao > 2:
         return "Erro !!!"
