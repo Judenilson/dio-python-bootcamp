@@ -119,16 +119,6 @@ class Usuario:
     @property
     def endereco(self):
         return self.__endereco 
-    
-    # def data_nascimento(self, data):
-    #     if isinstance(data, str):
-    #         self.__data_nascimento = data
-    #     else:
-    #         raise ValueError("O nome deve ser uma string")
-    
-    # def endereco(self, endereco):
-    #     self.__endereco = endereco
-    #     return self.__endereco
 
 def menu(opcao):
     if opcao > 2:
