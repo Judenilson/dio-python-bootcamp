@@ -16,8 +16,8 @@ pip install jd_image_process
 ## Usage
 
 ```python
-from jd_image_process.utils import io, plot
-from jd_image_process.processing import combination, transformation
+from jd_image_processing.utils import io, plot
+from jd_image_processing.processing import combination, transformation
 
 image1 = io.read_image('image1_path')
 image2 = io.read_image('image2_path')
