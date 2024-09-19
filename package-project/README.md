@@ -3,7 +3,7 @@
 Description. 
 The package jd_image_process is used to:
 
-	- Complete the requirements of a challenge in a Data Engineering class at Digital Innovation One.
+- Complete the requirements of a challenge in a Data Engineering class at Digital Innovation One.
 
 ## Installation
 
