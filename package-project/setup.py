@@ -7,7 +7,7 @@ with open("requirements.txt") as f:
     requirements = f.read().splitlines()
 
 setup(
-    name="jd_image_processing",
+    name="jd-image-processing",
     version="0.0.1",
     author="judenilson",
     author_email="judenilson@hotmail.com",
