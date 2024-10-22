@@ -15,3 +15,9 @@ O que deve ser feito?
 - Por fim, mas não menos importante, adicione uma tabela dimensão de datas. Para compensar a falta de dados de datas do modelo relacional, suponha que você tem acesso aos dados e crie os campos necessários para modelagem.
 
 Ex: data de oferta das disciplinas, data de oferta dos cursos, entre outros. O formato, ou melhor, a granularidade, não está fixada. Podem ser utilizados diferentes formatos que correspondem a diferentes níveis de granularidade.
+
+## Imagem de referência
+<img align="center" src="https://github.com/Judenilson/dio-python-bootcamp/blob/main/power-bi-challenges/power_bi_analyst_star_schema_ref_image.png" />    
+
+## Imagem da Modelagem Dimensional Star Schema
+<img align="center" src="https://github.com/Judenilson/dio-python-bootcamp/blob/main/power-bi-challenges/power_bi_analyst_star_schema.png" />    
