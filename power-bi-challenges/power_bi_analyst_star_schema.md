@@ -24,7 +24,7 @@ Ex: data de oferta das disciplinas, data de oferta dos cursos, entre outros. O f
 
 ## Código usado no dbdiagram.io para gerar a modelagem
 ### https://dbml.dbdiagram.io/docs
-
+```
 enum atuacao {
   "exatas"
   "humanas"
@@ -76,3 +76,4 @@ Ref: d_data.id_d_data > f_professor.id_d_data
 Ref: d_curso.id_d_curso > f_professor.id_d_curso
 Ref: d_disciplina.id_d_disciplina > f_professor.id_d_disciplina
 Ref: d_departamento.ID_d_departamento > f_professor.ID_d_departamento
+```
